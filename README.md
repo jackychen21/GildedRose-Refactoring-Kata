@@ -1,3 +1,27 @@
+# Gilded Rose: Strategy pattern refactor (Python)
+
+My solution to the Gilded Rose refactoring kata, in [`python/`](python/).
+
+**What I changed**
+
+- Replaced the original nested `if/else` block in `update_quality` with the **Strategy pattern**: one updater class per item type (normal, Aged Brie, Sulfuras, backstage passes, Conjured), sharing clamped `_increase_quality` / `_decrease_quality` helpers that keep quality between 0 and 50.
+- Added an `ItemUpdaterFactory` that maps item names to strategies, so a new item type is one new class and one map entry, with no changes to existing logic.
+- Implemented the **Conjured items** requirement (quality degrades twice as fast), matched by the `Conjured` name prefix.
+- Locked in the original behavior first with an **approval (characterization) test** over a 30-day simulation, then added **21 unit tests** covering each item type's rules and edge cases.
+
+**Run the tests**
+
+```bash
+cd python
+python3 -m unittest discover -s tests -t .
+```
+
+Key files: [`python/gilded_rose.py`](python/gilded_rose.py) · [`python/tests/test_gilded_rose.py`](python/tests/test_gilded_rose.py)
+
+---
+
+## Original kata instructions
+
 _Support this and all my katas via [Patreon](https://www.patreon.com/EmilyBache)_
 
 # Gilded Rose Refactoring Kata
